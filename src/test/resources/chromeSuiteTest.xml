@@ -1,9 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="example test suite" verbose="1">
+<suite name="Home Page Suite" verbose="1">
     <parameter name="browser" value="chrome"></parameter>
     <parameter name="url" value="https://www.espnqa.com/?src=com&amp;_adblock=true&amp;espn=cloud"></parameter>
-
-    <test name="example run">
+    <test name="Home Page Test">
         <classes>
             <class name="com.globant.tests.HomePageTest"></class>
         </classes>
