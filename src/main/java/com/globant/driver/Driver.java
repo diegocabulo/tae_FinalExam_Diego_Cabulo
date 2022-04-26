@@ -3,6 +3,7 @@ package com.globant.driver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Driver {
     private WebDriver driver;
@@ -12,7 +13,7 @@ public class Driver {
             case ("firefox"):
                 try {
                     WebDriverManager.firefoxdriver().setup();
-                    driver = new ChromeDriver();
+                    driver = new FirefoxDriver();
                 }
                 catch (Exception e){
                     System.out.println(e);

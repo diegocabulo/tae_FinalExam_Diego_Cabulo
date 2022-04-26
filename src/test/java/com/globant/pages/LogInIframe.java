@@ -47,12 +47,6 @@ public class LogInIframe extends BasePage{
         return confirmCommonButton;
     }
 
-    public void clickLoginIframe(String username, String password){
-        userNameInputField.sendKeys(username);
-        waitToBeClickable(passwordInputField);
-        passwordInputField.sendKeys(password);
-        logInButton.click();
-    }
 
     public void clickDeleteAccount(){
         waitToBeClickable(deleteAccountLink);

@@ -36,9 +36,6 @@ public class HomePage extends BasePage{
         return logOutButton;
     }
 
-    public WebElement getLogInButtonCheck() {
-        return logInButtonCheck;
-    }
 
 
     public LogInIframe clickLogIn(){
