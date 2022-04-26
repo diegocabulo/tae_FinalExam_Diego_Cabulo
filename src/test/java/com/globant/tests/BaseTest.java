@@ -5,6 +5,7 @@ import com.globant.pages.HomePage;
 import com.globant.pages.LogInIframe;
 import org.apache.log4j.Logger;
 import org.testng.annotations.*;
+import java.util.Random;
 
 public class BaseTest {
     Driver driver;
@@ -25,8 +26,11 @@ public class BaseTest {
         logger.info("You are in the home page");
         LogInIframe logInIframe = homePage.clickLogIn();
         logger.info("You enter the log in iframe page");
-        logInIframe.clickLoginIframe("malirsalpodcast0816@gmail.com", "test12345*");
-        logger.info("You log in correctly in to the page");
+        logInIframe.clickSignUpIframe();
+        logger.info("You enter the signUp iframe page");
+        logInIframe.fillFieldsSignUp(randomEmailGenerate());
+        logInIframe.clickSignUp();
+        logger.info("You Signup correctly");
     }
 
     @AfterTest(alwaysRun = true)
@@ -36,5 +40,19 @@ public class BaseTest {
 
     public HomePage getHomePage() {
         return homePage;
+    }
+
+    public String randomEmailGenerate(){
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 18;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+        return String.join("",generatedString, "@gmail.com");
     }
 }

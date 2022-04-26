@@ -1,10 +1,6 @@
 package com.globant.pages;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
 public class LogInIframe extends BasePage{
@@ -22,11 +18,34 @@ public class LogInIframe extends BasePage{
     @FindBy(css = "input[type='password']")
     private WebElement passwordInputField;
 
-    @FindBy(id = "close")
-    private WebElement currentPasswordField;
+    @FindBy(linkText = "Sign Up")
+    private WebElement signUpAnchorTag;
+
+    @FindBy(css = "input[name='firstName']")
+    private WebElement firstNameField;
+
+    @FindBy(css = "input[name='lastName']")
+    private WebElement lastNameField;
+
+    @FindBy(css = "input[name='email']")
+    private WebElement emailField;
+
+    @FindBy(css = "input[name='newPassword']")
+    private WebElement newPasswordField;
 
     @FindBy(id = "cancel-account")
     private WebElement deleteAccountLink;
+
+    @FindBy(css = "button.btn.btn-primary.ng-isolate-scope")
+    private WebElement confirmCommonButton;
+
+    public WebElement getDeleteAccountLink() {
+        return deleteAccountLink;
+    }
+
+    public WebElement getConfirmCommonButton() {
+        return confirmCommonButton;
+    }
 
     public void clickLoginIframe(String username, String password){
         userNameInputField.sendKeys(username);
@@ -35,9 +54,54 @@ public class LogInIframe extends BasePage{
         logInButton.click();
     }
 
-    public void scrollEndFrame(){
-        waitToBeClickable(currentPasswordField);
-        currentPasswordField.click();
+    public void clickDeleteAccount(){
+        waitToBeClickable(deleteAccountLink);
+        try{
+            deleteAccountLink.click();
+        } catch (org.openqa.selenium.StaleElementReferenceException ex){
+            WebElement deleteButton = getDriver().findElement(By.id("cancel-account"));
+            deleteButton.click();
+        }
+    }
+
+    public void clickConfirmDeleteAccount(){
+        if(confirmCommonButton.isDisplayed()){
+            waitToBeClickable(confirmCommonButton);
+            confirmCommonButton.click();
+        }
+
+    }
+
+    public void clickLastDeleteAccount(){
+        waitToBeClickable(confirmCommonButton);
+        try{
+            confirmCommonButton.click();
+        } catch (org.openqa.selenium.StaleElementReferenceException ex){
+            WebElement confirmDeleteAccount = getDriver().findElement(By.cssSelector("button.btn.btn-primary.ng-isolate-scope"));
+            confirmDeleteAccount.click();
+        }
+    }
+
+     public void clickSignUpIframe(){
+        waitToBeClickable(signUpAnchorTag);
+        signUpAnchorTag.click();
+    }
+
+    public void fillFieldsSignUp(String email){
+        waitToBeClickable(firstNameField);
+        firstNameField.sendKeys("test");
+        waitToBeClickable(lastNameField);
+        lastNameField.sendKeys("test");
+        waitToBeClickable(emailField);
+        emailField.sendKeys(email);
+        waitToBeClickable(passwordInputField);
+        passwordInputField.sendKeys("test12345*");
+    }
+
+    public void clickSignUp(){
+        confirmCommonButton.isDisplayed();
+        waitToBeClickable(confirmCommonButton);
+        confirmCommonButton.click();
     }
 
 
