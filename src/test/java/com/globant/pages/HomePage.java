@@ -12,7 +12,7 @@ public class HomePage extends BasePage{
         pDriver.get(url);
     }
 
-    private Actions actions = new Actions(getDriver());
+    private final Actions actions = new Actions(getDriver());
 
     @FindBy(id = "global-user-trigger")
     private WebElement hoverElement;
@@ -29,9 +29,15 @@ public class HomePage extends BasePage{
     @FindBy(css = "#sideLogin-left-rail > button.button-alt.med")
     private WebElement logInButtonCheck;
 
+    @FindBy(css = "#global-header a[tref='/members/v3_1/modifyAccount']")
+    private WebElement manageProfileButton;
+
+    public WebElement getLogOutButton() {
+        return logOutButton;
+    }
+
     public LogInIframe clickLogIn(){
-        waitElementVisibility(hoverElement);
-        actions.moveToElement(hoverElement).perform();
+        actionHoverElement();
         waitToBeClickable(logInButton);
         logInButton.click();
         getDriver().switchTo().frame(iframeLogIn);
@@ -39,8 +45,6 @@ public class HomePage extends BasePage{
     }
 
     public void clickLogOut(){
-        waitElementVisibility(hoverElement);
-        actions.moveToElement(hoverElement).perform();
         waitToBeClickable(logOutButton);
         logOutButton.click();
     }
@@ -51,9 +55,21 @@ public class HomePage extends BasePage{
     }
 
     public boolean checkLogOut(){
-        waitElementVisibility(hoverElement);
-        actions.moveToElement(hoverElement).perform();
+        actionHoverElement();
         waitToBeClickable(logOutButton);
         return logOutButton.getText().equals("Log Out");
+    }
+
+    public void actionHoverElement(){
+        waitElementVisibility(hoverElement);
+        actions.moveToElement(hoverElement).perform();
+    }
+
+    public LogInIframe clickModifyProfile(){
+        actionHoverElement();
+        waitToBeClickable(manageProfileButton);
+        manageProfileButton.click();
+        getDriver().switchTo().frame(iframeLogIn);
+        return new LogInIframe(getDriver());
     }
 }

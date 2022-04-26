@@ -3,11 +3,6 @@
     <parameter name="browser" value="chrome"></parameter>
     <parameter name="url" value="https://www.espnqa.com/?src=com&amp;_adblock=true&amp;espn=cloud"></parameter>
     <test name="logIn test">
-        <groups>
-            <run>
-                <include name="logInGroup"></include>
-            </run>
-        </groups>
         <classes>
             <class name="com.globant.tests.LogIngPageTest"></class>
         </classes>
